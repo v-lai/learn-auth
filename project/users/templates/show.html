@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Welcome to the Learn Auth App</h1>
-<p>SHOW PAGE YAAAAAAAAY!</p>
+<h1>{{user.username}}'s Page</h1>
+<p>This is your SHOW PAGE YAAAAAAAAY!</p>
 <p></p>
-<a href="{{url_for('users.edit', id=user.id)}}" class="btn btn-primary">Edit page</a>
+<a href="{{url_for('users.edit', id=user.id)}}" class="btn btn-primary">Edit user info</a>
 {% endblock %}

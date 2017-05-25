@@ -100,11 +100,11 @@ def show(id):
             found_user.username = form.data['username']
             if bcrypt.check_password_hash(found_user.password, form.data['old_password']):
                 if form.data['new_password'] == form.data['confirm']:
-                    found_user.password = form.data['new_password']
-                else:
-                    found_user.password = form.data['old_password']
-            db.session.add(found_user)
-            db.session.commit()
-            return redirect(url_for('users.show', id=found_user.id))
+                    found_user.password = bcrypt.generate_password_hash(form.data['new_password']).decode('UTF-8')
+                    db.session.add(found_user)
+                    db.session.commit()
+                    flash('User edited!')
+                return redirect(url_for('users.show', id=found_user.id))
+        flash('User not edited! Double check passwords.')
         return render_template('edit.html', user=found_user, form=form)
     return render_template('show.html', user=found_user)
